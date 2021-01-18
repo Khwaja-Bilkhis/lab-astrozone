@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
+import service.AstroCalculator;
+
 
 @WebServlet(urlPatterns = {"/entervalue"})
 public class AstroFormController extends HttpServlet {
@@ -20,7 +23,7 @@ public class AstroFormController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/* 
+
 		String name=request.getParameter("name");
 		String gender=request.getParameter("gender");
 		String date=request.getParameter("dob1");
@@ -28,6 +31,14 @@ public class AstroFormController extends HttpServlet {
 		String year=request.getParameter("dob3");
 		String dob = date+"-"+month+"-"+year;	
 		String email = request.getParameter("email");
+		User user=new User(name,email,dob,gender);	
+		AstroCalculator astroCal=new AstroCalculator();
+		String astrosign=astroCal.findSign(user);
+		
+		System.out.println("Name:"+name);
+		System.out.println("dob:"+dob);
+		System.out.println("Sign:"+astrosign);
+		
 		if(astrosign.equals("Aquarius")){
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/Outputview.jsp");
 			request.setAttribute("astro", "<img src='./assets/aquarius.svg'>");
@@ -88,6 +99,6 @@ public class AstroFormController extends HttpServlet {
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/Outputview.jsp");
 			request.setAttribute("astro", "<img src='./assets/virgo.svg'>");
 			rd.forward(request, response);
-		}*/
+		}
 	}
 }
